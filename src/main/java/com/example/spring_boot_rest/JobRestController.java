@@ -15,7 +15,7 @@ public class JobRestController {
     private JobService service;
 
 
-    @GetMapping("jobPosts")
+    @GetMapping(path="jobPosts", produces ={"application/json"})
     //this wil tell that whatever we are returning is a body, not a file.
     public List<JobPost> getAllJobs(){
         return service.getAllJobs(); // returning the data itself. "JSON"
