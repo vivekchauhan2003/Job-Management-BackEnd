@@ -29,8 +29,48 @@ public class JobRestController {
     }
 
     @PostMapping("jobPost")
-    public void addJob(@RequestBody JobPost jobPost){
+    public JobPost addJob(@RequestBody JobPost jobPost){
         service.addJob(jobPost);
+        // return jobPost; // this will tell that we added some data.(bad practise)
+        return service.getJob(jobPost.getPostId()); // now this will come form the collection (best practise)
     }
+    //@RequestBody allow us to get data sent by client.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
