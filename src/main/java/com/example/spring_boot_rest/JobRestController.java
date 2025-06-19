@@ -36,6 +36,19 @@ public class JobRestController {
     }
     //@RequestBody allow us to get data sent by client.
 
+    @PutMapping("jobPost")
+    public JobPost updateJob(@RequestBody JobPost jobPost){
+        service.updateJob(jobPost);
+        return service.getJob(jobPost.getPostId());
+    }
+
+    @DeleteMapping("jobPost/{postId}")
+    public String deleteJob(@PathVariable int postId){
+        service.deleteJob(postId);
+        return ("Delete a post with id : " + postId);
+
+    }
+
 
 
 

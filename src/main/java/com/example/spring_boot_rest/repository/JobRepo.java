@@ -1,14 +1,12 @@
 package com.example.spring_boot_rest.repository;
 
 import com.example.spring_boot_rest.model.JobPost;
+import org.springframework.boot.autoconfigure.batch.BatchProperties;
 import org.springframework.stereotype.Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class JobRepo {
@@ -53,6 +51,51 @@ public class JobRepo {
         }
         return null;
     }
+
+
+    public void updateJob(JobPost jobPost) {
+        for (JobPost jobPost1 : jobs) {
+            if (jobPost1.getPostId() == jobPost.getPostId()) {
+                jobPost1.setPostDesc(jobPost.getPostDesc());
+                jobPost1.setPostProfile(jobPost.getPostProfile());
+                jobPost1.setReqExperience(jobPost.getReqExperience());
+                jobPost1.setPostTechStack(jobPost.getPostTechStack());
+                break; // Optional: break after match
+            }
+        }
+    }
+
+
+//    public void deleteJob(int postId) {
+//        for(int i = 0; i < jobs.size(); i++) {
+//            JobPost jobPost = jobs.get(i);
+//            if(jobPost.getPostId() == postId) {
+//                jobs.remove(i);
+//                i--; // Important: decrement index after removal to avoid skipping elements
+//            }
+//        }
+//    }
+
+    public void deleteJob(int postId) {
+        synchronized (jobs) {
+            Iterator<JobPost> iterator = jobs.iterator();
+            while (iterator.hasNext()) {
+                JobPost job = iterator.next();
+                if (job.getPostId() == postId) {
+                    iterator.remove(); // Safe way to delete during iteration
+                    break;
+                }
+            }
+        }
+    }
+
+
+//    public void deleteJob(int postId) {
+//        synchronized (jobs) {
+//            jobs.removeIf(job -> job.getPostId() == postId);
+//        }
+//    }
+
 
 
 }
